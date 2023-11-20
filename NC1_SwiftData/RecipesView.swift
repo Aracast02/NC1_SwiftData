@@ -10,10 +10,6 @@ import SwiftData
 
 struct RecipesView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var recipes: [Recipe]
-    @Query private var diets: [Diet]
-    @Query private var methods: [RecipeMethod]
-    @Query private var categories: [RecipeCategory]
     @State var flag: Bool = true
     @Query(FetchDescriptor(predicate: #Predicate<Recipe> {$0.isFavourite}))  var favourites: [Recipe]
     
@@ -24,7 +20,7 @@ struct RecipesView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
                             // Your content here
-                            ForEach(diets) { diet in
+                            ForEach(favourites) { diet in
                                 Button{
                                     //  Action
                                 }label:{
@@ -38,7 +34,6 @@ struct RecipesView: View {
                         }
                         .padding()
                     }
-                    
                     
                     ForEach(favourites){ rec in
                         NavigationLink{
@@ -76,16 +71,25 @@ struct RecipesView: View {
                 }
             }
             .navigationTitle("Recetas")
+//            .searchable(text: $searchText)
+//            .searchSuggestions {
+//                if searchText.isEmpty {
+//                    RecipesSearchSuggestions()
+//                }
+//            }
             
                 .toolbar {
 //                    ToolbarItem{
 //                        EditButton()
 //                    }
                     ToolbarItem(placement: .automatic) {
-                        Button(action: {
-                            // Action for the first button
-                        }) {
-                            Image(systemName: "magnifyingglass")
+                        NavigationStack{
+                                NavigationLink {
+                                    SearchView()
+                                } label: {
+                                    Image(systemName: "magnifyingglass")
+                                        .foregroundStyle(Color.accentColor)
+                                }
                         }
                     }
                     ToolbarItem(placement: .automatic) {
@@ -99,21 +103,6 @@ struct RecipesView: View {
                 .background(Color(red: 0.983, green: 0.988, blue: 0.984))
         }
     }
-    
-//    private func addRecipe (){
-//        var newName: String
-//        var newCookingTime: Int
-//        var newCal: Int
-//        var newIsFavourite: Bool = false
-//        var newCategory: RecipeCategory
-//        var newRecipeMethod: RecipeMethod
-//        var newDiet: Diet
-//        
-//        let newRecipe = Recipe(name: newName, cookingTime: newCookingTime, cal: newCal, isFavourite: newIsFavourite, category: newCategory, watCook: newRecipeMethod, diet: newDiet)
-//        modelContext.insert(newRecipe)
-//    }
-    
-//    
 //    private func deleteRecipe (offsets: IndexSet) {
 //        withAnimation {
 //            for index in offsets {
