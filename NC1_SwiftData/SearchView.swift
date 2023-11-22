@@ -6,15 +6,43 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SearchView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var recipes: [Recipe]
+    @Query private var diets: [Diet]
     @State private var searchText = ""
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            ScrollView{
+                LazyVGrid(columns: [.init(.adaptive(minimum: 300))]) {
+                    RecipesSerachResults(searchText: $searchText)
+                }
+            }
+            .searchable(text: $searchText)
+            .searchSuggestions{
+                if searchText.isEmpty{
+                    RecipesSearchSuggestions()
+                }
+            }
+        }
+        .navigationTitle("Results")
     }
 }
 
 #Preview {
     SearchView()
+        .modelContainer(for: Recipe.self)
 }
+
+//NavigationStack{
+//    List{
+//        if $searchText.wrappedValue.isEmpty{
+//            ForEach(diets){ diet in
+//                Text(diet.name)
+//            }
+//        }
+//    }
+//}
