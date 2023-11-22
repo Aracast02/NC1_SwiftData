@@ -10,6 +10,10 @@ import SwiftData
 
 struct RecipesView: View {
     @Environment(\.modelContext) private var modelContext
+    @Query var recipes: [Recipe]
+    @Query var diets: [Diet]
+    @Query var methods: [RecipeMethod]
+    @Query var cat: [RecipeCategory]
     @State var flag: Bool = true
     @Query(FetchDescriptor(predicate: #Predicate<Recipe> {$0.isFavourite}))  var favourites: [Recipe]
     
@@ -20,7 +24,7 @@ struct RecipesView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
                             // Your content here
-                            ForEach(favourites) { diet in
+                            ForEach(diets) { diet in
                                 Button{
                                     //  Action
                                 }label:{
@@ -79,9 +83,9 @@ struct RecipesView: View {
 //            }
             
                 .toolbar {
-//                    ToolbarItem{
-//                        EditButton()
-//                    }
+                    ToolbarItem{
+                        EditButton()
+                    }
                     ToolbarItem(placement: .automatic) {
                         NavigationStack{
                                 NavigationLink {
@@ -103,13 +107,15 @@ struct RecipesView: View {
                 .background(Color(red: 0.983, green: 0.988, blue: 0.984))
         }
     }
-//    private func deleteRecipe (offsets: IndexSet) {
-//        withAnimation {
-//            for index in offsets {
-//                modelContext.delete(recipes[index])
-//            }
-//        }
-//    }
+    
+    private func deleteRecipe (offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(recipes[index])
+            }
+        }
+    }
+    
 }
 
 #Preview {

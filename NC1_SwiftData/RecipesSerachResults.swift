@@ -9,8 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct RecipesSerachResults: View {
+    @Environment(\.modelContext) private var modelContext
     @Binding var searchText: String
     @Query private var recipes: [Recipe]
+    @Query private var diets: [Diet]
     
     init(searchText: Binding<String>) {
         _searchText = searchText

@@ -1,15 +1,15 @@
 //
-//  Recipe.swift
+//  Models.swift
 //  NC1_SwiftData
 //
-//  Created by Arantza Castro Dessavre on 13/11/23.
+//  Created by Arantza Castro Dessavre on 22/11/23.
 //
 
 import Foundation
 import SwiftData
 
 @Model
-final class Recipe{
+public class Recipe{
     
     var name: String
     var cookingTime: Int
@@ -34,23 +34,29 @@ final class Recipe{
 @Model
 final class RecipeCategory {
     @Attribute(.unique) var name: String
+    var logo: String
     // `.cascade` tells SwiftData to delete all animals contained in the category when deleting it.
     @Relationship(deleteRule: .cascade, inverse: \Recipe.category)
     var recipes = [Recipe]()
     
-    init(name: String) {
+    init(name: String, logo: String, recipes: [Recipe] = [Recipe]()) {
         self.name = name
+        self.logo = logo
+        self.recipes = recipes
     }
 }
 
 @Model
 final class RecipeMethod {
     @Attribute(.unique) var name: String
+    var logo: String
     @Relationship(deleteRule: .cascade, inverse: \Recipe.watCook)
     var recipes = [Recipe]()
     
-    init(name: String) {
+    init(name: String, logo: String, recipes: [Recipe] = [Recipe]()) {
         self.name = name
+        self.logo = logo
+        self.recipes = recipes
     }
 }
 
@@ -58,10 +64,13 @@ final class RecipeMethod {
 @Model
 final class Diet {
     @Attribute(.unique) var name: String
+    var logo: String
     @Relationship(deleteRule: .cascade, inverse: \Recipe.diet)
     var recipes = [Recipe]()
     
-    init(name: String) {
+    init(name: String, logo: String, recipes: [Recipe] = [Recipe]()) {
         self.name = name
+        self.logo = logo
+        self.recipes = recipes
     }
 }

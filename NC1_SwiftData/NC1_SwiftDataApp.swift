@@ -31,7 +31,7 @@ let sharedModelContainer: ModelContainer = {
 
     do {
         let container = try ModelContainer(for: schema)
-        
+
         // Make sure the persistent store is empty. If it's not, return the non-empty container.
         var dietFetchDescriptor = FetchDescriptor<Diet>()
         dietFetchDescriptor.fetchLimit = 1
@@ -53,27 +53,27 @@ let sharedModelContainer: ModelContainer = {
         // This code will only run if the persistent store is empty.
         
         let categories = [
-            RecipeCategory(name: "Breakfast"),
-            RecipeCategory(name: "Luch"),
-            RecipeCategory(name: "Dinner"),
-            RecipeCategory(name: "Snack")
+            RecipeCategory(name: "Breakfast", logo: "☕️"),
+            RecipeCategory(name: "Luch", logo: "🍲"),
+            RecipeCategory(name: "Dinner", logo: "🥗"),
+            RecipeCategory(name: "Snack", logo: "🍎")
         ]
         
         let methods = [
-            RecipeMethod(name: "Easy"),
-            RecipeMethod(name: "For the way"),
-            RecipeMethod(name: "Few ingridients"),
-            RecipeMethod(name: "Baked"),
-            RecipeMethod(name: "Au gratin")
+            RecipeMethod(name: "Easy" , logo: "👍"),
+            RecipeMethod(name: "For the way", logo: "🍌"),
+            RecipeMethod(name: "Few ingridients", logo: "🛒"),
+            RecipeMethod(name: "Baked", logo: "🥧"),
+            RecipeMethod(name: "Au gratin", logo: "🥘")
         ]
         
         let diets = [
-            Diet(name: "Vegeterian"),
-            Diet(name: "Vegan"),
-            Diet(name: "High protein"),
-            Diet(name: "High fiber"),
-            Diet(name: "Keto"),
-            Diet(name: "Pescatarian")
+            Diet(name: "Vegeterian", logo: "🧀"),
+            Diet(name: "Vegan", logo: "🌱"),
+            Diet(name: "High protein", logo: "🍳"),
+            Diet(name: "High fiber", logo: "🍠"),
+            Diet(name: "Keto", logo: "🥓"),
+            Diet(name: "Pescatarian", logo: "🐟")
         ]
         
         let recipes = [
